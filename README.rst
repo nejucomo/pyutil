@@ -100,6 +100,9 @@ https://tahoe-lafs.org/trac/pyutil
 tests and benchmarks
 ====================
 
+Testing requires these dependencies: ``twisted``, ``setuptools_trial``,
+and ``simplejson``.
+
 To run tests: ``python ./setup.py trial -s pyutil.test.current``.
 
 You can also run the tests with the standard pyunit test runner instead of
