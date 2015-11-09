@@ -101,7 +101,7 @@ tests and benchmarks
 ====================
 
 Testing requires these dependencies: ``twisted``, ``setuptools_trial``,
-and ``simplejson``.
+``mock``, and ``simplejson``.
 
 To run tests: ``python ./setup.py trial -s pyutil.test.current``.
 
@@ -140,7 +140,7 @@ packages. Here's an example of this process (command output omitted):
     $ git clone 'https://github.com/zooko/pyutil'
     $ cd pyutil/
     $ virtualenv ./venv
-    $ ./venv/bin/pip install twisted setuptools_trial simplejson
+    $ ./venv/bin/pip install twisted setuptools_trial mock simplejson
     $ ./venv/bin/python ./setup.py trial -s pyutil.test
 
 LICENCE
