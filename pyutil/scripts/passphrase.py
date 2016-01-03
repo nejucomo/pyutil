@@ -74,4 +74,4 @@ def main():
     sys.stdout.write(passphrase)
     sys.stdout.write('\n')
 
-    sys.stderr.write(u"This passphrase encodes about %.0d bits.\n" % (bits,))
+    sys.stderr.write(u"This passphrase encodes about {:.0f} bits.\n".format(bits))
