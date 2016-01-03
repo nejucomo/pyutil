@@ -47,7 +47,10 @@ data_files = [
     (os.path.join(u'pyutil', u'data'), [os.path.join(u'pyutil', u'data', u'wordlist.txt')])
     ]
 
-install_requires=[u'zbase32 >= 1.0']
+install_requires = [
+    u'zbase32 >= 1.0',
+    u'simplejson >= 2.1.0',
+]
 
 readmetext_bytes = open(u'README.rst').read()
 readmetext_unicode = readmetext_bytes.decode('utf-8')
@@ -68,6 +71,9 @@ setup(name=PKG,
       data_files=data_files,
       extras_require={u'jsonutil': [u'simplejson >= 2.1.0',]},
       install_requires=install_requires,
+      tests_require=[
+          u'twisted >= 15.5.0',  # for trial (eg user: test_observer)
+      ],
       classifiers=trove_classifiers,
       entry_points = {
           u'console_scripts': [
