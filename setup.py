@@ -73,6 +73,7 @@ setup(name=PKG,
       install_requires=install_requires,
       tests_require=[
           u'twisted >= 15.5.0',  # for trial (eg user: test_observer)
+          u'mock >= 1.3.0',
       ],
       classifiers=trove_classifiers,
       entry_points = {
