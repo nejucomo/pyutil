@@ -4,10 +4,9 @@
 #  This file is part of pyutil; see README.rst for licensing terms.
 
 import unittest
-import argparse
 from cStringIO import StringIO
 
-from mock import patch, call
+from mock import patch, call, ANY
 
 from pyutil.scripts import passphrase
 
@@ -18,7 +17,7 @@ class Passphrase(unittest.TestCase):
     @patch('pyutil.scripts.passphrase.gen_passphrase')
     @patch('sys.stdout')
     def test_main(self, m_stdout, m_gen_passphrase, m_ArgumentParser):
-        m_args = m_ArgumentParser.parse_args.return_value
+        m_args = m_ArgumentParser.return_value.parse_args.return_value
         m_args.dictionary = StringIO('alpha\nbeta\n')
         m_args.bits = 42
 
@@ -38,20 +37,14 @@ class Passphrase(unittest.TestCase):
                  help=('what file to read a list of words from ' +
                        "(or omit this option to use passphrase's " +
                        'bundled dictionary)'),
-                 type=argparse.FileType('rU'),
+                 type=ANY,
                  metavar="DICT"),
              call().add_argument(
                  'bits',
                  help="how many bits of entropy minimum",
                  type=float,
                  metavar="BITS"),
-             call().parse_args(),
-
-             # BUG: Can we remove this layer of specificity?
-             # Why doesn't m_args remove this layer of specificity?
-             call().parse_args().__nonzero__(),
-             call().parse_args().readlines(),
-             call().parse_args().readlines().__iter__()])
+             call().parse_args()])
 
         self.assertEqual(
             m_gen_passphrase.mock_calls,
@@ -60,4 +53,5 @@ class Passphrase(unittest.TestCase):
         self.assertEqual(
             m_stdout.mock_calls,
             [call.write(u"Your new password is: 'wombat'. " +
-                        "It is worth about 42 bits.\n")])
+                        "It is worth about 43 bits."),
+             call.write('\n')])
