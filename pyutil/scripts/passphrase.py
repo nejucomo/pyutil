@@ -4,7 +4,7 @@
 
 #  This file is part of pyutil; see README.rst for licensing terms.
 
-import argparse, math, random
+import argparse, math, random, sys
 
 from pyutil.mathutil import div_ceil
 
@@ -71,4 +71,7 @@ def main():
 
     passphrase, bits = gen_passphrase(args.bits, allwords)
 
-    print u"Your new password is: '%s'. It is worth about %.0d bits." % (passphrase, bits)
+    sys.stdout.write(passphrase)
+    sys.stdout.write('\n')
+
+    sys.stderr.write(u"This passphrase encodes about %.0d bits.\n" % (bits,))

@@ -16,7 +16,10 @@ class Passphrase(unittest.TestCase):
     @patch('argparse.ArgumentParser')
     @patch('pyutil.scripts.passphrase.gen_passphrase')
     @patch('sys.stdout')
-    def test_main(self, m_stdout, m_gen_passphrase, m_ArgumentParser):
+    @patch('sys.stderr')
+    def test_main(self, m_stderr, m_stdout,
+                  m_gen_passphrase, m_ArgumentParser):
+
         m_args = m_ArgumentParser.return_value.parse_args.return_value
         m_args.dictionary = StringIO('alpha\nbeta\n')
         m_args.bits = 42
@@ -52,6 +55,9 @@ class Passphrase(unittest.TestCase):
 
         self.assertEqual(
             m_stdout.mock_calls,
-            [call.write(u"Your new password is: 'wombat'. " +
-                        "It is worth about 43 bits."),
+            [call.write(u"wombat"),
              call.write('\n')])
+
+        self.assertEqual(
+            m_stderr.mock_calls,
+            [call.write(u"This passphrase encodes about 43 bits.\n")])
